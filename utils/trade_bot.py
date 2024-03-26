@@ -5,11 +5,13 @@ from alpaca.trading.enums import OrderSide, TimeInForce
 from .database import Database
 
 class PaperAccount():
+    """ Class for handling trading in paper account in https://app.alpaca.markets/paper/dashboard/overview """
     def __init__(self) -> None:
         self.client = TradingClient(config.ALPACA_KEY,  config.ALPACA_SECRET, paper=True)
         self.db = Database()
 
     def get_client(self):
+        """ Get alpaca trading client. Should only be used for testing. """
         return self.client
     
     def buy_stock(self, ticker, dollar_amount, price_of_stock):

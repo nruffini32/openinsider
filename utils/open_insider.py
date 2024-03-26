@@ -4,32 +4,15 @@ from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame
 from datetime import datetime, timedelta, date
 
-# X
-# A	Amended filing
-# D	Derivative transaction in filing (usually option exercise)
-# E	Error detected in filing
-# M	Multiple transactions in filing; earliest reported transaction date and weighted average transaction price
-
-# Daily flow
-#   1. Ingest all new records (already implemented)
-#   2. Create purchases table
-#   3. Create sales table ?
-#   4. Cluster table ?
-#   5. Get price now of all stocks
-#       
-
-### FOR EACH TRADE I WANT TO SEE ALL POSITIONS AND HOW MUCH MONEY THEY HAVE MADE
-        # FOR EACH PERSON I WANT TO SEE HOW MUCH MONEY THEY HAVE MADE - HOW MUCH DID STOCK GO UP AFTER THEY BOUGHT IT - START THERE
-        ## START AT THIS - FOR EACH TRADE - HOW MUCH STOP HAS MOVED SINCE THEN - HOW MUCH THEY MADE
-
-############# HEHREHRHEHERH -  maybe look into cluster buys?
-
 
 class InsiderScraper:
+    """ Class used for getting information from openinsider.com """
     def __init__(self) -> None:
+        # Header for requests
         self.headers = {
             "user-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"
         }
+        # Column names from openinsider.com
         self.keys = [
             "x",
             "filing_date",
@@ -48,7 +31,7 @@ class InsiderScraper:
             
     def _scrape_openinsider(self, url):
         """
-        Returns list of trades given url param.
+        Returns list of trades given url param. Used internally.
         """
         try:
             response = requests.get(url, headers=self.headers)
@@ -145,7 +128,8 @@ class InsiderScraper:
     def get_stock_price(self, client, tickers, input_date):
         """
         Returns stock price of ticker for date.
-        200 calls / min in the limit - ticker can be list of strings or just a string
+        200 calls / min in the limit - ticker can be list of strings or just a string.
+        StockBarsRequests details - https://alpaca.markets/sdks/python/api_reference/data/stock/requests.html
 
         Args:
             client (alpaca.data.StockHistoricalDataClient): client from alpaca - StockHistoricalDataClient(config.ALPACA_KEY,  config.ALPACA_SECRET)
@@ -164,16 +148,6 @@ class InsiderScraper:
                 'volume': 1067978.0,
                 'vwap': 89.446311}]}
         """
-
-        # symbol_or_symbols (Union[str, List[str]]): The ticker identifier or list of ticker identifiers.
-        # timeframe (TimeFrame): The period over which the bars should be aggregated. (i.e. 5 Min bars, 1 Day bars)
-        # start (Optional[datetime]): The beginning of the time interval for desired data. Timezone naive inputs assumed to be in UTC.
-        # end (Optional[datetime]): The end of the time interval for desired data. Defaults to now. Timezone naive inputs assumed to be in UTC.
-        # limit (Optional[int]): Upper limit of number of data points to return. Defaults to None.
-        # adjustment (Optional[Adjustment]): The type of corporate action data normalization.
-        # feed (Optional[DataFeed]): The stock data feed to retrieve from.
-        # sort (Optional[Sort]): The chronological order of response based on the timestamp. Defaults to ASC.
-        
         # Convert string to datetime object
         if isinstance(input_date, str):
             input_date = datetime.strptime(input_date, "%Y-%m-%d")

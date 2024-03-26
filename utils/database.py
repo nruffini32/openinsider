@@ -1,14 +1,14 @@
 import os
 import pandas as pd
 from google.cloud import bigquery
-from alpaca.trading.models import Order
-from alpaca.trading.requests import GetAssetsRequest
-from alpaca.trading.enums import AssetClass
-from datetime import date, datetime
-
+from datetime import datetime
 
 
 class Database:
+    """
+    Class to handle database. Database used is GCPs BigQuery. 
+    Need JSON service principal file with correct permissions store in credentials/ 
+    """
     def __init__(self) -> None:
         # Setting up environ variables with json service principal file
         cur_dir = os.path.dirname(__file__)
@@ -16,27 +16,28 @@ class Database:
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS_PATH
         self.client = bigquery.Client()
 
-
     def get_client(self):
+        """ Returns BigQuery client. Should only be used for testing. """
         return self.client
 
     def drop_table(self, table):
+        """ Drops table from BigQuery. If table does not exists WILL NOT throw an error message. """
         try:
             self.client.delete_table(f"open_insider.{table}", not_found_ok=True)
         except Exception as e:
             raise Exception("Error with drop_table:", e)
         
     def get_num_rows(self, table):
+        """ Get number of row from table. """
         try:
             table = self.client.get_table(f"open_insider.{table}")
             return table.num_rows
         except Exception as e:
             return 0
 
-    
     def query(self, query):
         """
-        Send a query to BigQuery. Returns a iterator object - view below link to see methods on the results
+        Send a query to BigQuery. Returns a iterator object - details below.
           https://cloud.google.com/python/docs/reference/bigquery/latest/google.cloud.bigquery.table.RowIterator
         """
         resp = self.client.query(query)  # API request
@@ -44,6 +45,7 @@ class Database:
         return rows
     
     def get_table_data(self, table):
+        """ Returns all records from a table in a list of tuples. Each tuple is a row. """
         full_table = f"open_insider.{table}"
         try:
             rows = self.client.query(f"select * from `{full_table}`")
@@ -57,14 +59,15 @@ class Database:
 
         
     def query_to_pd(self, query):
+        """ Returns a pandas dataframe from the query. """
         resp = self.client.query(query)
         resp = resp.result()
         df = resp.to_dataframe()
         return df
     
     def clean_trade(self, trade):
+        """ Cleaning up trade in order to not run into any type conversion errors. """
         temp_trade = trade
-
         temp_trade["price"] = trade["price"].replace("$", "").replace(",", "")
         temp_trade["qty"] = trade["qty"].replace(",", "")
         temp_trade["owned"] = trade["owned"].replace(",", "")
@@ -73,6 +76,7 @@ class Database:
         return temp_trade
     
     def clean_trades(self, trades):
+        """ Cleans a list of trades. """
         lst = []
         for t in trades:
             cleaned = self.clean_trade(t)
@@ -100,7 +104,7 @@ class Database:
     # Store new trades wherever - need to make sure self.db is defined correctly
     def cache_trades(self, trades, full_load=False):
         """
-        Inserting new trades.
+        Inserting new trades. Using primary key (filing_date, ticker, insider_name, trade_type).
 
         Args:
             trades is a list of dictionaries
@@ -108,7 +112,7 @@ class Database:
         Assumptions:
             assumes all trades are in the same month-year.
         """
-        # Not a full load so we need to check against existing records
+        # Not a full load so we need to check against existing records - Only checking against current month and year because of assumption
         if full_load == False:
             print("Not a full load - checking against existing records")
 
@@ -142,6 +146,7 @@ class Database:
             
             self.insert_trades("trades_bronze", lst_to_insert)
 
+        # Full Load
         else:
             print("full load - not checking against existing records")
             lst_to_insert = []
@@ -177,7 +182,6 @@ class Database:
         job_config = bigquery.LoadJobConfig()
         job_config.source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON
         job_config.schema = schema
-
 
         cleaned_trades = self.clean_trades(trades)
         resp = self.client.load_table_from_json(json_rows=cleaned_trades, destination=f"open_insider.{table}", job_config=job_config)
@@ -215,6 +219,7 @@ class Database:
             ....,
             }
         """
+        # Formatting trades into list of dicionaries to prep for insert
         lst_to_insert = []
         for ticker in stock_dic:
             data = stock_dic[ticker][0]
@@ -231,10 +236,10 @@ class Database:
             }
             lst_to_insert.append(temp_dic)
 
+        # Inserting records into table
         if table == "recent_ticker_data":
             self.client.load_table_from_json(json_rows=lst_to_insert, destination=f"open_insider.{table}")
         else:
-
             try:
                 resp = self.client.insert_rows_json(f"uplifted-name-410515.open_insider.{table}", lst_to_insert)
                 if resp:
@@ -247,17 +252,12 @@ class Database:
         """
         Inserting order into my_orders table. 'Order' class - https://github.com/alpacahq/alpaca-py/blob/881b5deddef54682f5d63ace8a6c9bff6c49868d/alpaca/trading/models.py
         Args:
+            id str: order id of alpaca order
             ticker str: symbol of stock
             trade_type str: either purchase or sale
             order_type str: indicating whole share or fractional "D" - dollar amount "S" - share amount
             amount float: either dollar amount or share amount
         """
-        # Want to store
-            # date
-            # ticker
-            # price of ticker
-            # num_shares
-            # value
         
         # Get the current timestamp
         current_timestamp = datetime.now().timestamp()
