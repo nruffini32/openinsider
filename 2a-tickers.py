@@ -3,17 +3,16 @@ from alpaca.data import StockHistoricalDataClient
 import time
 from datetime import datetime, timedelta
 
+# Script to get the price of tickers for each day it is traded
+    # On a daily run will only get tickers from the max date in the database up until yesterday
+
 print("Starting tickers script")
 
 scraper = InsiderScraper()
 db = Database()
 sto = CloudStorage("2a_tickers")
 
-
-# Randomly missing from ticker_dates
-# check = ['2016-03-25', '2017-04-14', '2018-03-30', '2019-04-19', '2020-04-10', '2021-04-02', '2022-04-15', '2023-04-07']
-
-## THIS IS SAME AS FULL_LOAD - MIGHT WANT TO ADD AS METHOD TO DB
+# Function to add tickers to database
 def add_tickers_to_db(ticker_dates):
     cnt = 0
     for row in ticker_dates:
@@ -55,9 +54,6 @@ data = db.query("select max(date) from `open_insider.ticker_data`")
 for d in data:
     max_date = d.values()[0]
 
-
-
-# max_date = max_date - timedelta(days=4) ############
 sto.print(f"Max date: {max_date} - Yesterday: {yesterday}\n")
 
 if max_date == yesterday:
@@ -88,5 +84,5 @@ for day in range(date_difference.days):
 
     add_tickers_to_db(query_resp)
 
-
+# Have to run this so logging file is actually created
 sto.close_file()

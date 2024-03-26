@@ -1,12 +1,15 @@
 from datetime import datetime
 from utils import InsiderScraper, Database, CloudStorage
 
+# Script to process new trades from openinsider.com and insert them into trades_bronze table in GCP.
+    # On a normal run will check new trades against existing trades of current month-year using primary 
+    # key (filing_date, ticker, insider_name, trade_type). See utils.database.Database.cache_trades()
+
+    # Puts all new records in staging_trades to be used down the line.
 print("Starting trades script")
 
-## Run this every day to process new trades
-    # FULL_LOAD - depends if you want to check against existing records or not - False = it is checking
-    # START_YEAR - what year you want to process from
-    # START_MONTH - will process current month and last month with how it is configured now
+# START_YEAR - what year you want to process from
+# START_MONTH - will process current month and last month with how it is configured now
 current_year = datetime.now().year
 current_month = datetime.now().month
 
@@ -42,10 +45,6 @@ for year in range(START_YEAR, current_year + 1):
 
         num_rows = db.get_num_rows(STAGING_TABLE)
         sto.print(f"{num_rows} total rows in {STAGING_TABLE}")
-        
-
-# MIGHT JUST WANT TO RUN PURCHASES AND SALES SCRIPTS HERE
-    # HAVE THEM OUT FOR DEBUGGING PURPOSES
             
-
+# Have to run this so logging file is actually created
 sto.close_file()

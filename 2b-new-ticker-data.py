@@ -2,22 +2,19 @@ from utils import Database, InsiderScraper, config, CloudStorage
 from alpaca.data import StockHistoricalDataClient
 import datetime
 
+# Script to get most recent price for all tickers
+
 db = Database()
 scraper = InsiderScraper()
 sto = CloudStorage("2b_new_tickers")
 
-
-
-### IF DATE IS TODAY (OR YESTERDAY) - SKIP SCRIPT (DATA ALREADY UP TO DATE)
-
+# Getting all tickers that have been traded and putting them in a list
 sto.print("\nStarting most recent ticker data script")
 q = """select
 distinct ticker
 from `open_insider.ticker_data`"""
 rows = db.query(q)
-
 sto.print("Getting all tickers in og ticker table")
-# Getting all tickers
 tickers = []
 for row in rows:
     ticker = row.values()[0]
@@ -41,5 +38,5 @@ sto.print(f"Dropping and recreating {TABLE_NAME}")
 db.drop_table(TABLE_NAME)
 db.cache_new_stock(ticker_data, "recent_ticker_data")
 
-
+# Have to run this so logging file is actually created
 sto.close_file()
