@@ -38,7 +38,7 @@ for year in range(START_YEAR, current_year + 1):
 
         # Putting recent trades into new table to add them to OLAP table
         if len(added_trades) != 0:
-            sto.print(f"Adding {len(added_trades)} to {STAGING_TABLE}")
+            sto.print(f"Adding {len(added_trades)} to {STAGING_TABLE}\n")
             db.create_table_from_trades(STAGING_TABLE, added_trades)
         else:
             sto.print("No trades added to staging table")

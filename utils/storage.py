@@ -6,12 +6,12 @@ from .credentials import config
 class CloudStorage():
     """ Class used to hand logging to GCS. """
     def __init__(self, name) -> None:
-
+        
+        cur_dir = os.path.dirname(__file__)
         CREDENTIALS_PATH = f"{cur_dir}/credentials/uplifted-name-410515-1b457124323f.json"
         BUCKET_NAME = config.BUCKET_NAME
 
         # Setting up environ variables with json service principal file
-        cur_dir = os.path.dirname(__file__)
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS_PATH
 
         # Get current datetime object

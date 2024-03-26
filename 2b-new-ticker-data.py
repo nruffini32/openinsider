@@ -9,12 +9,12 @@ scraper = InsiderScraper()
 sto = CloudStorage("2b_new_tickers")
 
 # Getting all tickers that have been traded and putting them in a list
-sto.print("\nStarting most recent ticker data script")
+sto.print("\nStarting most recent ticker data script\n")
 q = """select
 distinct ticker
 from `open_insider.ticker_data`"""
 rows = db.query(q)
-sto.print("Getting all tickers in og ticker table")
+sto.print("Getting all tickers in og ticker table\n")
 tickers = []
 for row in rows:
     ticker = row.values()[0]
@@ -30,11 +30,11 @@ yesterday = today.strftime("%Y-%m-%d")
 # Getting stock data and storing in a table
 TABLE_NAME = "recent_ticker_data"
 
-sto.print("Fetching most recent data from api")
+sto.print("Fetching most recent data from api\n")
 stock_client = StockHistoricalDataClient(config.ALPACA_KEY,  config.ALPACA_SECRET)
 ticker_data = scraper.get_stock_price(stock_client, tickers, yesterday)
 
-sto.print(f"Dropping and recreating {TABLE_NAME}")
+sto.print(f"Dropping and recreating {TABLE_NAME}\n")
 db.drop_table(TABLE_NAME)
 db.cache_new_stock(ticker_data, "recent_ticker_data")
 

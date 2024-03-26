@@ -14,7 +14,7 @@ sto = CloudStorage("4_make_trades")
 sto.print("Fetching data from staging_trades.\n")
 data = db.get_table_data(STAGING_TABLE)
 if not data:
-    sto.print(f"{STAGING_TABLE} is empty. Exiting script.")
+    sto.print(f"{STAGING_TABLE} is empty. Exiting script.\n")
     exit()
 
 # Looping through each trade in staging_trades
@@ -37,8 +37,8 @@ for d in data:
         percent_of_owned = round((qty / owned), 5)
         buy_amount = BANKROLL * percent_of_owned
 
-        sto.print(f"{trade_type} - {ticker}")
-        sto.print(f"INSIDER INFO - p:${price} q:{qty} owned:{owned} my buy amount: {buy_amount}")
+        sto.print(f"{trade_type} - {ticker}\n")
+        sto.print(f"INSIDER INFO - p:${price} q:{qty} owned:{owned} my buy amount: {buy_amount}\n")
 
         # Trying dollar amount purchase - if it doesn't work then buying full shares
         paper.buy_stock(ticker, buy_amount, price)
@@ -64,22 +64,22 @@ for d in data:
         data = my_tickers[ticker]
         tot_value = float(data["market_value"])
         shares = data["qty"]
-        sto.print(f"MY INFO FOR {ticker} - val:{tot_value} shares:{shares}")
+        sto.print(f"MY INFO FOR {ticker} - val:{tot_value} shares:{shares}\n")
 
         # Calculate the percentage of my shares I want to sell based on how much insider sold
         qty = abs(qty)
         percent_of_owned = round((qty / owned), 5)
         selling_value = round(tot_value * percent_of_owned, 2)
-        sto.print(f"Insider owned {owned}. They sold {qty}. That is {percent_of_owned} of their total shares.")
-        sto.print(f"I should sell {selling_value}")
+        sto.print(f"Insider owned {owned}. They sold {qty}. That is {percent_of_owned} of their total shares.\n")
+        sto.print(f"I should sell {selling_value}\n")
 
         # Selling stock
         paper.sell_stock(ticker, selling_value, price)
 
-    sto.print("")
+    sto.print("\n")
 
 # Deleting staging table
-sto.print(f"Deleting table {STAGING_TABLE}")
+sto.print(f"Deleting table {STAGING_TABLE}\n")
 db.drop_table(STAGING_TABLE)
     
 # Have to run this so logging file is actually created.
