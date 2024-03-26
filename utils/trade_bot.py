@@ -5,20 +5,24 @@ from alpaca.trading.enums import OrderSide, TimeInForce
 from .database import Database
 
 class PaperAccount():
+    """ Class for handling trading in paper account in https://app.alpaca.markets/paper/dashboard/overview """
     def __init__(self) -> None:
         self.client = TradingClient(config.ALPACA_KEY,  config.ALPACA_SECRET, paper=True)
         self.db = Database()
 
     def get_client(self):
+        """ Get alpaca trading client. Should only be used for testing. """
         return self.client
     
     def buy_stock(self, ticker, dollar_amount, price_of_stock):
         """
-        Buying x amount of a stock. If fractional purchase doesn't work then trying full share purchase
+        Buying x amount of a stock. If fractional purchase doesn't work then trying full share purchase.
+        Then inserts order into my_orders table in database.
 
         Args:
             ticker str: stock market ticker
-            dollar_amount int: amount you want to sell
+            dollar_amount float: amount you want to buy
+            price_of_stock float: price insider bought stock at
         """
         trade_type = "P - Purchase"
         try:
@@ -68,11 +72,14 @@ class PaperAccount():
 
     def sell_stock(self, ticker, dollar_amount, price_of_stock):
         """
-        Selling x amount of a stock.
+        Selling x amount of a stock. Will try fractional sale first then move to whole shares if that doesn't work.
+        Then inserts order into my_orders table in database.
 
         Args:
             ticker str: stock market ticker
-            dollar_amount int: amount you want to sell
+            dollar_amount float: amount you want to sell
+            price_of_stock float: price insider bought stock at
+
         """
         trade_type = "S - Sale"
         try:
@@ -121,31 +128,12 @@ class PaperAccount():
                 print(f"Couldn't sell any {ticker}. error - {e}")
 
     def current_positions(self):
-        """
-        Returns all current positions.
-        """
+        """ Returns all current positions. """
         positions = self.client.get_all_positions()
         return positions
 
     def wipe_account(self):
-        """
-        Closes all positions and cancels all orders.
-        """
-        # closes all position AND also cancels all open orders
+        """ Closes all positions and cancels all orders. """
+        # Closes all position AND also cancels all open orders
         self.client.close_all_positions(cancel_orders=True)
         print("Wiping paper account")
-
-    
-
-
-if __name__ == "__main__":
-    paper = PaperAccount()
-    client = paper.get_client()
-
-    # positions = paper.get_positions()
-    # print(positions)
-    paper.wipe_account()
-
-
-
-

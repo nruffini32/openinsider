@@ -1,7 +1,7 @@
 from utils import PaperAccount, Database, CloudStorage
 
+# Script to make trades using staging_trades. Will delete staging trades on completion.
 print("Starting script.\n")
-
 
 STAGING_TABLE = "staging_trades"
 BANKROLL = 1000
@@ -10,14 +10,14 @@ paper = PaperAccount()
 db = Database()
 sto = CloudStorage("4_make_trades")
 
-
+# If staging_table is empty or doesn't exists exiting script
 sto.print("Fetching data from staging_trades.\n")
 data = db.get_table_data(STAGING_TABLE)
 if not data:
     sto.print(f"{STAGING_TABLE} is empty. Exiting script.")
     exit()
 
-cnt = 0
+# Looping through each trade in staging_trades
 for d in data:
     ticker = d[3]
     trade_type = d[7]
@@ -25,7 +25,7 @@ for d in data:
     qty = d[9]
     owned = d[10]
 
-    # If it is a given trade or trade_type is not a straight up purchase or sale then skip
+    # If shares were given or trade_type is not a straight up purchase or sale then skip
     if price == 0 or trade_type not in ["P - Purchase", "S - Sale"]:
         continue
 
@@ -45,12 +45,6 @@ for d in data:
 
     # Logic for selling
     elif trade_type == "S - Sale":
-        # Check my current positions
-            # If I dont own any skip
-            # If I do own some then decide how much to sell
-                # If I have more than they sold then sell all
-                # All relative (%)
-        
         # Getting my current positions and creating dictionary
         positions = paper.current_positions()
         my_tickers = {i.symbol: {
@@ -84,19 +78,9 @@ for d in data:
 
     sto.print("")
 
-
-# Storing my positions here 
-#### UPDATE POSITINOS TABLE ??
-        
-
-# RECREATE ALAPACA ACCOUNT
-# CLEAR MY_ORDERS
-### GRAB LAST 18 FROM TRADES BRONZE
-
-
-# Need to delete staging also
+# Deleting staging table
 sto.print(f"Deleting table {STAGING_TABLE}")
 db.drop_table(STAGING_TABLE)
     
-
+# Have to run this so logging file is actually created.
 sto.close_file()

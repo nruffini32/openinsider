@@ -1,8 +1,11 @@
 from utils import Database, CloudStorage
 
+# Script to create trades table from trades_bronze
+  # Grab column that will be used for analyasis
+  # Would do this in a better way but only takes a couple seconds anyway
+
 db = Database()
 sto = CloudStorage("1b_trades")
-
 
 sto.print("Creating 'trades' table from trades_bronze")
 q = """
@@ -27,4 +30,5 @@ where
 
 db.query(q)
 
+# Have to run this so logging file is actually created
 sto.close_file()
