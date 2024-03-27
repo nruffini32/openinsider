@@ -31,17 +31,24 @@ A high level overview of the data pipeline is as follow:
 ## Data Objects
 #### Tables
 **trades_bronze**: Raw trades from openinsider.com
+
 **staging_trades**: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
+
 **trades**: Subset of trades_bronze with applied transformations
+
 **ticker_data**: Stock market data for all stocks at all dates they were traded at
+
 **recent_ticker_data**: Current stock market data for all stocks
+
 **my_orders**: All order that have been placed in Alpaca paper trading account
 
 #### Views
 **trades_ticker_data**: Joining trades and ticker_data to get ticker data for each trade
+
 **trades_per_insider**: Grouping all trades together per insider
 
 Schema details can be found [here](docs/schemas.md)
+
 ## Technologies
 Google Cloud Platform is used for all cloud services
 - BigQuery is used as data warehouse
