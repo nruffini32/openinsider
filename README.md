@@ -1,4 +1,4 @@
-# Insider Trading Replication
+# Replicating Insider Trades from openinsider.com
 
 ## About
 The site <a href="http://openinsider.com/">openinsider.com</a> tracks and publishes all insider trades.
