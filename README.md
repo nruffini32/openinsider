@@ -6,7 +6,10 @@ I wanted to know two things with this information:
 1. Are these people are making money off these trades?
 2. Can I make money knowing these trades?
 
-While I wanted to jump into these questions right away, I knew most of my time was going to be spent on the data engineering.
+While I wanted to jump into these questions right away, I knew most of my time was going to be spent on preparing the data.
+For any data related project, it is generally known around 70-80% of the time / resources are going to be spend on data engeering related tasks. (Take a look at <a href="https://www.example.com">this</a> blog for more details.)
+
+
 <img src="https://github.com/nruffini32/openinsider/assets/71286321/8a14f054-7a9e-48d3-880f-7b16fc82cf9b" width="450"/>
 
 
