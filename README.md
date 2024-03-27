@@ -64,30 +64,30 @@ The scripts are executed daily (via Cloud Run) in the order they are numbered:
 4. 2b-new-ticker-data.py
 5. 4-make-trades.py
 
-**1-trades-bronze.py** - Get new trades from openinsider.com and store in trades_bronze tab
+[1-trades-bronze.py](1-trades-bronze.py)- Get new trades from openinsider.com and store in trades_bronze tab
 - Scrape all trades for current month-year from openinsider.com
 - Insert trades into trades_bronze if primary key doesn't exists (filing_date, ticker, insider_name, trade_type)
   - In order to not compare against every record, the script is just comparing against records of the current month-year
 - Creating staging_trades table with all new trades
   
-**1b-trades.py** - Apply transformations from trades_bronze to get wanted data / columns
+[1b-trades.py](1b-trades.py) - Apply transformations from trades_bronze to get wanted data / columns
 - Use CTAS statement (with or replace) to create trades table with neccassary filters and columns
   - Doing this instead of some kind of append only logic for two reasons:
       1. Adding logic allows for more room for error - create or replace is guaranteed to have the most recent and accurate data
       2. The create or replace logic does not take enough time to warrant a replacement (takes <10 seconds)
    
-**2a-tickers.py** - Adds new trades to ticker_data
+[2a-tickers.py](2a-tickers.py) - Adds new trades to ticker_data
 - Compares existing max_date in ticker_data to yesterday
   - Since alpaca market api only works for historical data - using yesterday's stock data as most recent
 - If max_date is less than yesterday - then we want to process everyday from (max_date, yesterday]
 - For each date, we get all distinct tickers that were traded on that date from trades_bronze, and store in ticker_data
 
-**2b-new-ticker-data.py** - Get all of the most recent stock data for all tickers
+[2b-new-ticker-data.py](2b-new-ticker-data.py) - Get all of the most recent stock data for all tickers
 - Get all distinct tickers from ticker_data
 - For each ticker, get most recent stock data (yesterday)
 - Recreate recent_ticker_data with this information
 
-**4-make-trades.py** - Replicate all trades from openinsider.com to Alpaca paper trading account
+[4-make-trades.py](4-make-trades.py) - Replicate all trades from openinsider.com to Alpaca paper trading account
 - Fetches all trades from staging table
 - If the trades was a purchase
   - Calculate how much I am buying by following the following steps:
