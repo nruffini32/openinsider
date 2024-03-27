@@ -16,10 +16,6 @@ The picture below does a good job of visualizing this concept. If your base data
 
 <img src="https://github.com/nruffini32/openinsider/assets/71286321/8a14f054-7a9e-48d3-880f-7b16fc82cf9b" width="550"/>
 
-
-
-The project turned into a little more than that but I will walk through a high level overview.
-
 # Data Pipeline
 - Show DAG of tables / scripts that handle them
 - explain how pipeline works
