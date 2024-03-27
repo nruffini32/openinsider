@@ -35,13 +35,13 @@ Schema details can be found [here](docs/schemas.md)
 
 **staging_trades**: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
 
-trades: Subset of trades_bronze with applied transformations
+**trades**: Subset of trades_bronze with applied transformations
 
-ticker_data: Stock market data for all stocks at all dates they were traded at
+**ticker_data**: Stock market data for all stocks at all dates they were traded at
 
-recent_ticker_data: Current stock market data for all stocks
+**recent_ticker_data**: Current stock market data for all stocks
 
-my_orders: All order that have been placed in Alpaca paper trading account
+**my_orders**: All order that have been placed in Alpaca paper trading account
 
 ### Views
 **trades_ticker_data**: Joining trades and ticker_data to get ticker data for each trade
