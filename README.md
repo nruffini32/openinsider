@@ -13,24 +13,24 @@ The project turned into a little more than that but I will walk through a high l
 
 # Data Pipeline
 - Show DAG of tables / scripts that handle them
+- explain how pipeline works
 - High level overview of each script
 
 ### Modules
-- Describe each module
-- 
+- Describe each module all three of them and there basic functions
+
+- Took a lot of scraper module inspiration from here
+https://github.com/sd3v/openinsiderData
+
 ### Scheduling
-Using cloud run
+- Using cloud run
+- How it is being run every day
 
 
 # How I solved these questions.
 - Finally when I finished all the
 
+After the bitch work is done I can finally use the data for something cool. Explain analysis - each year they gained XXx over last 6 they gained 216% compares to S&P 500 which gained.
+Have alpaca papaer trading account that is ripping. Will keep it updated.
 
 
-  
-4. Make a trading bot that copies every trade.
-
-  Pretty simple. I wanted to know if these insiders are actually profitable with these trades.
-  
-
-https://github.com/sd3v/openinsiderData
