@@ -104,14 +104,11 @@ The scripts are executed daily (via Cloud Run) in the order they are numbered:
 #### Modules
 There are three main modules that are used through the scripts
 
-utils.database.Database
-- Interface to interact with BigQuery data warehouse
+[utils.database.Database](utils/database.py) - Interface to interact with BigQuery data warehouse
+
+[utils.open_insider.InsiderScraper](utils/open_insider.py)- Interface to interact with data from openinsider.com
   
-utils.open_insider.InsiderScraper
-- Interface to interact with data from openinsider.com
-  
-utils.storage.CloudStorage
-- Interface to interact with GCS - mainly use for logging
+[utils.storage.CloudStorage](utils/storage.py) - Interface to interact with GCS - mainly use for logging
   
 ###### Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
 
