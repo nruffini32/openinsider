@@ -1,6 +1,6 @@
 # openinsider.com
 
-The site openinsider.com tracks and publishes all insider trades. Which are trades made by high-ranking individuals within a comptrades who are trading their own company.
+The site openinsider.com tracks and publishes all insider trades.
 
 I wanted to know two things with this information:
 1. Are these people are making money off these trades?
