@@ -1,7 +1,7 @@
 # openinsider.com
 
 ## About
-The site openinsider.com tracks and publishes all insider trades.
+The site <a href="http://openinsider.com/">openinsider.com</a> tracks and publishes all insider trades.
 
 I wanted to know two things with this information:
 1. Are these people are making money off these trades?
@@ -9,7 +9,7 @@ I wanted to know two things with this information:
 
 ## Importance of Data Engineering
 While I wanted to jump into these questions right away, I knew most of my time was going to be spent preparing the data.
-For any data related project, it is generally known around 70-80% of the time and resources are going to be spend on data engeering related tasks. (<a href="https://www.example.com">This</a> blog goes into more detail.)
+For any data related project, it is generally known around 70-80% of the time and resources are going to be spend on data engeering related tasks. (<a href="https://bennettdatascience.com/tech-tuesdays-why-a-shocking-80-of-data-science-projects-goes-to-data-cleanup/">This</a> blog goes into more detail.)
 
 Without a solid data foundation, you cannot be confident in the analysis built on top of it. 'Garbage in, garbage out' is how I like to think of this concept.
 The picture below does a good job of visualizing this concept. If your base data engineering layers are not solid, then everything built on top of that is not worth anything.
