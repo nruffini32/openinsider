@@ -29,7 +29,7 @@ A high level overview of the data pipeline is as follow:
 <img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
 
 ## Data Objects
-#### Tables
+### Tables
 **trades_bronze**: Raw trades from openinsider.com
 
 **staging_trades**: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
@@ -42,7 +42,7 @@ A high level overview of the data pipeline is as follow:
 
 **my_orders**: All order that have been placed in Alpaca paper trading account
 
-#### Views
+### Views
 **trades_ticker_data**: Joining trades and ticker_data to get ticker data for each trade
 
 **trades_per_insider**: Grouping all trades together per insider
