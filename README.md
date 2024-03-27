@@ -64,15 +64,53 @@ The scripts are executed daily (via Cloud Run) in the order they are numbered:
 4. 2b-new-ticker-data.py
 5. 4-make-trades.py
 
-- Explain order of scripts
-- Give a couple bullet points for each script and how it works
+**1-trades-bronze.py** - Get new trades from openinsider.com and store in trades_bronze tab
+- Scrape all trades for current month-year from openinsider.com
+- Insert trades into trades_bronze if primary key doesn't exists (filing_date, ticker, insider_name, trade_type)
+  - In order to not compare against every record, the script is just comparing against records of the current month-year
+- Creating staging_trades table with all new trades
+  
+**1b-trades.py** - Apply transformations from trades_bronze to get wanted data / columns
+- Use CTAS statement (with or replace) to create trades table with neccassary filters and columns
+  - Doing this instead of some kind of append only logic for two reasons:
+      1. Adding logic allows for more room for error - create or replace is guaranteed to have the most recent and accurate data
+      2. The create or replace logic does not take enough time to warrant a replacement (takes <10 seconds)
+   
+**2a-tickers.py** - Adds new trades to ticker_data
+- Compares existing max_date in ticker_data to yesterday
+  - Since alpaca market api only works for historical data - using yesterday's stock data as most recent
+- If max_date is less than yesterday - then we want to process everyday from (max_date, yesterday]
+- For each date, we get all distinct tickers that were traded on that date from trades_bronze, and store in ticker_data
 
+**2b-new-ticker-data.py** - Get all of the most recent stock data for all tickers
+- Get all distinct tickers from ticker_data
+- For each ticker, get most recent stock data (yesterday)
+- Recreate recent_ticker_data with this information
+
+**4-make-trades.py** - Replicate all trades from openinsider.com to Alpaca paper trading account
+- Fetches all trades from staging table
+- If the trades was a purchase
+  - Calculate how much I am buying by following the following steps:
+    - Calculate how much the insider bought compared to their total shares (result is a percentage)
+    - Buy X dollars worth of the stock buy using that percentage (percentage * hardcoded number - currently 1000)
+- If the trades was a sale
+  - If I do not currently own any of the stock then skip
+  - If I do own the stock, then need to calculate how much I want to sell
+    - This calculation follows a similar process
+    - Instead of finding a percentage of the hard coded value, I sell the same percentage of my shares that the insider sold
+- Store the order in my_orders
+- Delete staging table
 
 #### Modules
-- List 3 modules and there uses
+There are three main modules that are used through the scripts
+utils.database.Database
+- Interface to interact with BigQuery data warehouse
+utils.open_insider.InsiderScraper
+- Interface to interact with data from openinsider.com
+utils.storage.CloudStorage
+- Interface to interact with GCS - mainly use for logging
 
-- Took a lot of scraper module inspiration from here
-https://github.com/sd3v/openinsiderData
+Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
 
 
 ## How I solved these questions.
