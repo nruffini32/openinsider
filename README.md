@@ -11,7 +11,7 @@ For any data related project, it is generally known around 70-80% of the time an
 Without a solid foundation of data 
 
 
-<img src="https://github.com/nruffini32/openinsider/assets/71286321/8a14f054-7a9e-48d3-880f-7b16fc82cf9b" width="450"/>
+<img src="https://github.com/nruffini32/openinsider/assets/71286321/8a14f054-7a9e-48d3-880f-7b16fc82cf9b" width="550"/>
 
 
 
