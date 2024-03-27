@@ -28,9 +28,10 @@ A high level overview of the data pipeline is as follow:
 6. New trades are replicated in alpaca paper trading account and my_orders table is updated with sucessful trades
 <img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
 
-## Data objects
+## Data Objects
 #### Tables
 trades_bronze: Raw trades from openinsider.com
+
 <img width="200" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/80a36d94-5790-4cfb-aac7-ee91f47527b7">
 
 staging_trades: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
