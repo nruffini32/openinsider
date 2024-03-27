@@ -29,6 +29,7 @@ A high level overview of the data pipeline is as follow:
 <img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
 
 ## Data Objects
+Schema details can be found [here](docs/schemas.md)
 ### Tables
 trades_bronze: Raw trades from openinsider.com
 
@@ -46,8 +47,6 @@ my_orders: All order that have been placed in Alpaca paper trading account
 **trades_ticker_data**: Joining trades and ticker_data to get ticker data for each trade
 
 **trades_per_insider**: Grouping all trades together per insider
-
-Schema details can be found [here](docs/schemas.md)
 
 ## Technologies
 Google Cloud Platform is used for all cloud services
