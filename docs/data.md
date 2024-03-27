@@ -2,8 +2,8 @@
 **trades_bronze**: Raw trades from openinsider.com
 
 <img width="175" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/80a36d94-5790-4cfb-aac7-ee91f47527b7">
-
-
+<br>
+<br>
 **staging_trades**: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
 - schema is same as trades_bronze
 
