@@ -115,10 +115,16 @@ utils.storage.CloudStorage
   
 ###### Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
 
-## How I solved these questions.
-- Finally when I finished all the
+## The Fun Part
+After the bitch work is done I can finally use the data for something cool.
+### Analysis
+- Go through year by year analysis
+- Go through total analysis
+- Compare against S&P 500
+- Maybe just think to notebook
+### Alpaca Paper Trading Account
+- Knowing this - I just decided to replicate every trade
+- Started 03/25/2024
+- Will potentially work on way to update (either web app or twitter bot)
 
-After the bitch work is done I can finally use the data for something cool. Explain analysis - each year they gained XXx over last 6 they gained 216% compares to S&P 500 which gained.
-Have alpaca papaer trading account that is ripping. Will keep it updated.
-
-
+Thanks for reading!
