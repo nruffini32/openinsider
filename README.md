@@ -29,11 +29,31 @@ A high level overview of the data pipeline is as follow:
 <img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
 
 ## Data objects
-trades_bronze: Stores all raw trades from open_insider
-trades: Same as trades_bronze with simple transformations
-ticker_data: Stock market data (open, high, low, close) for all stocks at all dates they were traded at
+#### Tables
+trades_bronze: Raw trades from openinsider.com
+<img width="253" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/80a36d94-5790-4cfb-aac7-ee91f47527b7">
+
+staging_trades: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
+- schema is same as trades_bronze
+
+trades: Subset of trades_bronze with applied transformations
+<img width="253" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/8dce0631-0fa5-4d76-b6cf-f1d94d9e811e">
+
+ticker_data: Stock market data for all stocks at all dates they were traded at
+<img width="194" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/0f2bb822-d005-4bf4-b802-ece8dfc7c66b">
+
 recent_ticker_data: Current stock market data for all stocks
-my_order: 
+- schema is same as ticker_data
+
+my_orders: All order that have been placed in Alpaca paper trading account
+<img width="243" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/c0078600-6eae-4aac-83a7-d95560055c64">
+
+#### Views
+trades_ticker_data: Joining trades and ticker_data to get ticker data for each trade
+<img width="243" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/d86ccb4c-d764-4278-8647-3374651790be">
+
+trades_per_insider: Grouping all trades together per insider
+<img width="205" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/e8544d62-5064-4780-bfd8-a201b3396163">
 
 ## Technologies
 Google Cloud Platform is used for all cloud services
@@ -42,24 +62,23 @@ Google Cloud Platform is used for all cloud services
 - Cloud run is used to schedule scripts daily
 <a href="https://app.alpaca.markets/brokerage/dashboard/overview">Alpaca</a> paper trading account and trading API is used to replicate trades
 
-- explain how pipeline works
-- High level overview of each script
+## Scripts
+The scripts are executed daily (via Cloud Run) in the order they are numbered:
+1. 1-trades-bronze.py
+2. 1b-trades.py
+3. 2a-tickers.py
+4. 2b-new-ticker-data.py
+5. 4-make-trades.py
 
-
-
-
-### Tables
+- Explain order of scripts
+- Give a couple bullet points for each script and how it works
 
 
 #### Modules
-- Describe each module all three of them and there basic functions
+- List 3 modules and there uses
 
 - Took a lot of scraper module inspiration from here
 https://github.com/sd3v/openinsiderData
-
-#### Scheduling
-- Using cloud run
-- How it is being run every day
 
 
 ## How I solved these questions.
