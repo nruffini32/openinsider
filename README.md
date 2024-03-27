@@ -106,7 +106,7 @@ There are three main modules that are used through the scripts
 
 [utils.database.Database](utils/database.py) - Interface to interact with BigQuery data warehouse
 
-[utils.open_insider.InsiderScraper](utils/open_insider.py)- Interface to interact with data from openinsider.com
+[utils.open_insider.InsiderScraper](utils/open_insider.py)- Interface to scrape data from openinsider.com
   
 [utils.storage.CloudStorage](utils/storage.py) - Interface to interact with GCS - mainly use for logging
   
