@@ -1,5 +1,5 @@
-## Schemas
-### Tables
+# Schemas
+## Tables
 **trades_bronze**
 
 <img width="175" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/80a36d94-5790-4cfb-aac7-ee91f47527b7">
@@ -28,7 +28,7 @@
 <br>
 <br>
 
-### Views
+## Views
 **trades_ticker_data**
 
 <img width="175" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/d86ccb4c-d764-4278-8647-3374651790be">
