@@ -89,11 +89,11 @@ The scripts are executed daily (via Cloud Run) in the order they are numbered:
 
 [4-make-trades.py](4-make-trades.py) - Replicate all trades from openinsider.com to Alpaca paper trading account
 - Fetches all trades from staging table
-- If the trades was a purchase
+- If the trade was a purchase
   - Calculate how much I am buying by following the following steps:
     - Calculate how much the insider bought compared to their total shares (result is a percentage)
     - Buy X dollars worth of the stock buy using that percentage (percentage * hardcoded number - currently 1000)
-- If the trades was a sale
+- If the trade was a sale
   - If I do not currently own any of the stock then skip
   - If I do own the stock, then need to calculate how much I want to sell
     - This calculation follows a similar process
