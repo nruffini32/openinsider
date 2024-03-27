@@ -109,9 +109,8 @@ utils.open_insider.InsiderScraper
 - Interface to interact with data from openinsider.com
 utils.storage.CloudStorage
 - Interface to interact with GCS - mainly use for logging
-
-Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
-
+  
+###### Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
 
 ## How I solved these questions.
 - Finally when I finished all the
