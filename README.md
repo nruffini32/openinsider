@@ -52,7 +52,7 @@ my_orders: All order that have been placed in Alpaca paper trading account
 Google Cloud Platform is used for all cloud services
 - BigQuery is used as data warehouse
 - Cloud Storage is used for logging
-- Cloud run is used to schedule scripts daily
+- Cloud run is used to schedule scripts daily (defined in Procfile)
   
 <a href="https://app.alpaca.markets/brokerage/dashboard/overview">Alpaca</a> paper trading account and trading API is used to replicate trades
 
