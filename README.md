@@ -103,10 +103,13 @@ The scripts are executed daily (via Cloud Run) in the order they are numbered:
 
 #### Modules
 There are three main modules that are used through the scripts
+
 utils.database.Database
 - Interface to interact with BigQuery data warehouse
+  
 utils.open_insider.InsiderScraper
 - Interface to interact with data from openinsider.com
+  
 utils.storage.CloudStorage
 - Interface to interact with GCS - mainly use for logging
   
