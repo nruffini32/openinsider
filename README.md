@@ -31,9 +31,9 @@ A high level overview of the data pipeline is as follow:
 ## Data Objects
 Schema details can be found [here](docs/schemas.md)
 ### Tables
-trades_bronze: Raw trades from openinsider.com
+**trades_bronze**: Raw trades from openinsider.com
 
-staging_trades: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
+**staging_trades**: Recently processed trades - used in downstream scripts. Deleted at the end of pipeline execution
 
 trades: Subset of trades_bronze with applied transformations
 
