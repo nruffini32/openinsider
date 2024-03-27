@@ -237,15 +237,11 @@ class Database:
             lst_to_insert.append(temp_dic)
 
         # Inserting records into table
-        if table == "recent_ticker_data":
+        try:
             self.client.load_table_from_json(json_rows=lst_to_insert, destination=f"open_insider.{table}")
-        else:
-            try:
-                resp = self.client.insert_rows_json(f"uplifted-name-410515.open_insider.{table}", lst_to_insert)
-                if resp:
-                    print("RESPONSE", resp)
-            except Exception as e:
-                raise Exception(f"FAILED: {e}")
+        except Exception as e:
+            raise Exception(f"FAILED: {e}")
+
             
 
     def insert_order(self, id, ticker, trade_type, order_type, amount):
