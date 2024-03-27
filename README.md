@@ -41,7 +41,7 @@ A high level overview of the data pipeline is as follow:
 **trades_ticker_data**: Joining trades and ticker_data to get ticker data for each trade
 **trades_per_insider**: Grouping all trades together per insider
 
-Schema details can be found [here](docs/another_file.md)
+Schema details can be found [here](docs/schemas.md)
 ## Technologies
 Google Cloud Platform is used for all cloud services
 - BigQuery is used as data warehouse
