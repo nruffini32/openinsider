@@ -113,15 +113,16 @@ There are three main modules that are used through the scripts
 ###### Took a lot of scraper module inspiration from here - https://github.com/sd3v/openinsiderData
 
 ## The Fun Part
-After the bitch work is done I can finally use the data for something cool.
+Now that the boring stuff is out of the way (joking) we can get to the fun stuff.
 ### Analysis
-- Go through year by year analysis
-- Go through total analysis
-- Compare against S&P 500
-- Maybe just think to notebook
+[This notebook](analysis/roi.ipynb) calculates the average return on investment (ROI) per year for all insiders. If you were to replicate every **purchase** from openinsider.com from 2016-2024, your average yearly ROI would be about 137%. Compare this to the S&P 500, who's average yearly return is around 10%. You would 13x your yearly return from your investments if you blindly followed every purchase from openinsider.com compared to the S&P 500.
+
+###### Disclaimer: This analysis only takes into account purchases. It does not account for sales.
+
 ### Alpaca Paper Trading Account
-- Knowing this - I just decided to replicate every trade
-- Started 03/25/2024
-- Will potentially work on way to update (either web app or twitter bot)
+I am currently doing just that in an Alpaca Paper Trading account. The trades are moving through the pipeline and are being executed in the trading account. This project is relatively new (has been running since 03/25/2024 and I am writing this on 03/27/2024) so I have not seen these results in the account yet, but expect to soon.
+
+I want to develop some way to track this live, either through a twitter bot or a web app. So look out for that in the future.
+
 
 Thanks for reading!
