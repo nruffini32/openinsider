@@ -1,4 +1,4 @@
-# openinsider
+# openinsider.com
 
 The site openinsider.com tracks and publishes all trades made by high-ranking individuals within a company, or an insider, who trade shares of their own company.
 
