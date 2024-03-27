@@ -5,8 +5,7 @@
 <br>
 <br>
 
-**staging_trades**
-- schema is same as trades_bronze
+**staging_trades** - schema is same as trades_bronze
 
 **trades**
 
@@ -20,8 +19,7 @@
 <br>
 <br>
 
-**recent_ticker_data**
-- schema is same as ticker_data
+**recent_ticker_data** - schema is same as ticker_data
 
 **my_orders**
 
