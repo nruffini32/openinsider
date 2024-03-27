@@ -12,6 +12,8 @@
 <img width="175" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/8dce0631-0fa5-4d76-b6cf-f1d94d9e811e">
 
 
+
+
 **ticker_data**: Stock market data for all stocks at all dates they were traded at
 
 <img width="175" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/0f2bb822-d005-4bf4-b802-ece8dfc7c66b">
