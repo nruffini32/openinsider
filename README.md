@@ -28,14 +28,14 @@ A high level overview of the data pipeline is as follow:
 6. New trades are replicated in alpaca paper trading account and my_orders table is updated with sucessful trades
 <img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
 
-#### Data objects
+## Data objects
 trades_bronze: Stores all raw trades from open_insider
 trades: Same as trades_bronze with simple transformations
 ticker_data: Stock market data (open, high, low, close) for all stocks at all dates they were traded at
 recent_ticker_data: Current stock market data for all stocks
 my_order: 
 
-#### Technologies
+## Technologies
 Google Cloud Platform is used for all cloud services
 - BigQuery is used as data warehouse
 - Cloud Storage is used for logging
