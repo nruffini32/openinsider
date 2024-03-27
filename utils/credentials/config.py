@@ -1,4 +1,4 @@
 # https://paper-api.alpaca.markets
-ALPACA_KEY = "PKL5TUUN56JFISXX5R23"
-ALPACA_SECRET = "9QYDCx75VSw80UxPV5U868HVNegtF97hp859KWtk"
-BUCKET_NAME = "nicolo-bucket"
+ALPACA_KEY = ""
+ALPACA_SECRET = ""
+BUCKET_NAME = ""
