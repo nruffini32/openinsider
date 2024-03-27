@@ -17,9 +17,32 @@ The picture below does a good job of visualizing this concept. If your base data
 <img src="https://github.com/nruffini32/openinsider/assets/71286321/8a14f054-7a9e-48d3-880f-7b16fc82cf9b" width="550"/>
 
 ## Data Pipeline
+A high level overview of the data pipeline is as follow:
+1. Data is ingested from openinsider.com to trades_bronze table (staging_trades is also created with newly processed trades)
+2. Simple tranformations are applied to trades_bronze to create trades table
+3. New stock data is added to ticker_data 
+4. Current stock data is updated in recent_ticker_data
+5. Views are created from trades and ticker_data
+6. New trades are replicated in alpaca paper trading account and my_orders table is updated with sucessful trades
+<img width="1310" alt="image" src="https://github.com/nruffini32/openinsider/assets/71286321/1c8e0756-b851-4cef-b8b1-ca8f3623bc96">
+
+
+
 - Show DAG of tables / scripts that handle them
 - explain how pipeline works
 - High level overview of each script
+
+### Data objects
+trades_bronze: Stores all raw trades from open_insider
+trades: Same as trades_bronze with simple transformations
+ticker_data: Stock market data (open, high, low, close) for all stocks at all dates they were traded at
+recent_ticker_data: Current stock market data for all stocks
+my_order: 
+
+
+### Tables
+### Technologies
+- GCP's BigQuery is main data storage
 
 #### Modules
 - Describe each module all three of them and there basic functions
