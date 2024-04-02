@@ -1,0 +1,1 @@
+web: python3 1-trades-bronze.py && python3 1b-trades.py && python3 2a-tickers.py && python3 2b-new-ticker-data.py && python3 4-make-trades.py
